@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "3ba6b128-d1a8-480f-b44b-b2e6e1b4f756",
+		"name": "Safe Browsing API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28260195"
+	},
+	"item": [
+		{
+			"name": "Получение списков",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/{{API_version}}/threatLists?key=6e419207-9d2b-4e66-b2f7-100f58830b0c",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"{{API_version}}",
+						"threatLists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "6e419207-9d2b-4e66-b2f7-100f58830b0c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка по URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"threatInfo\": {\r\n    \"threatTypes\": [\"MALWARE\"],\r\n    \"platformTypes\": [\"WINDOWS\"],\r\n    \"threatEntryTypes\": [\"URL\"],\r\n    \"threatEntries\": [\r\n      {\"url\": \"https://www.instagram.com/\"}\r\n    ]\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/{{API_version}}/threatMatches:find?key=6e419207-9d2b-4e66-b2f7-100f58830b0c",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"{{API_version}}",
+						"threatMatches:find"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "6e419207-9d2b-4e66-b2f7-100f58830b0c"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "6e419207-9d2b-4e66-b2f7-100f58830b0c",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "https://sba.yandex.net",
+			"type": "string"
+		},
+		{
+			"key": "API_version",
+			"value": "v4",
+			"type": "string"
+		}
+	]
+}
